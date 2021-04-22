@@ -1,43 +1,39 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
 
 import s from './Dialogs.module.css'
-
-const DialogItem = (props) => {
-    let path = '/dialogs/' + props.id
-    return (
-        <div className={s.dialog + ' ' + s.active}>
-            <NavLink to={path}>{props.name}</NavLink>
-        </div>
-    )
-}
-
-const Messange = (props) => {
-    return (
-        <div className={s.messange}>
-            {props.messange}
-        </div>
-    )
-}
+import DialogItem from "./DialogItem/DialogItem";
+import Messange from "./Messange/Messange";
 
 const Dialogs = (props) => {
+
+    let dialogs = [
+        {id: 1, name: 'Taras'},
+        {id: 2, name: 'Ksusha'},
+        {id: 3, name: 'Roma'},
+        {id: 4, name: 'Natasha'},
+        {id: 5, name: 'Vlad'},
+        {id: 6, name: 'Tanya'},
+    ]
+
+    let messanges = [
+        {id: 1, messange: 'hi'},
+        {id: 2, messange: 'how are you?'},
+        {id: 3, messange: 'what did you say?'},
+        {id: 4, messange: 'ololo'},
+        {id: 5, messange: 'wow'},
+        {id: 6, messange: 'yo'},
+    ]
+
+    let dialogElements = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let messangeElements = messanges.map(m => <Messange messange={m.messange}/>)
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem name="Taras" id="1"/>
-                <DialogItem name="Ksusha" id="2"/>
-                <DialogItem name="Roma" id="3"/>
-                <DialogItem name="Natasha" id="4"/>
-                <DialogItem name="Vlad" id="5"/>
-                <DialogItem name="Tanya" id="6"/>
+                {dialogElements}
             </div>
             <div className={s.messanges}>
-                <Messange messange="hi"/>
-                <Messange messange="how are you?"/>
-                <Messange messange="what did you say?"/>
-                <Messange messange="ololo"/>
-                <Messange messange="wow"/>
-                <Messange messange="yo"/>
+                {messangeElements}
             </div>
         </div>
     )
