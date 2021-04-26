@@ -19,6 +19,9 @@
     padding: 10px;
 }
 
-.messange {
-
+.newMessange {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 300px;
 }

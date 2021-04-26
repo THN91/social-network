@@ -1,0 +1,8 @@
+.wrapper {
+  margin-top: 60px;
+}
+
+.friendsItem {
+    display: flex;
+    justify-content: space-between;
+}
