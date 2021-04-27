@@ -12,8 +12,12 @@ const Dialogs = (props) => {
     let newMessangeElement = React.createRef();
 
     let sendMessange = () => {
+        props.addMessange()
+    }
+
+    let onMessangeChange = () => {
         let text = newMessangeElement.current.value
-        alert(text)
+        props.updateNewMessangeText(text)
     }
 
     return (
@@ -24,7 +28,11 @@ const Dialogs = (props) => {
             <div className={s.messanges}>
                 <div>{messangeElements}</div>
                 <div className={s.newMessange}>
-                    <textarea ref={newMessangeElement}></textarea>
+                    <textarea
+                        ref={newMessangeElement}
+                        onChange={onMessangeChange}
+                        value={props.state.newMessangeText}
+                    />
                     <button onClick={sendMessange}>send messange</button>
                 </div>
             </div>
