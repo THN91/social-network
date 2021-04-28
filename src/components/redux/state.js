@@ -1,4 +1,6 @@
-import {rerenderEntriTree} from "../../render";
+let rerenderEntireTree = () => {
+    console.log('State changed')
+};
 
 let state = {
     dialogPage: {
@@ -46,12 +48,12 @@ export let addPost = () => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntriTree(state)
+    rerenderEntireTree()
 }
 
 export let updateNewPostText = (newText) => {
     state.profilePage.newPostText = newText
-    rerenderEntriTree(state)
+    rerenderEntireTree()
 }
 
 export let addMessange = () => {
@@ -61,12 +63,16 @@ export let addMessange = () => {
     }
     state.dialogPage.messanges.push(newMessange)
     state.dialogPage.newMessangeText = ''
-    rerenderEntriTree(state)
+    rerenderEntireTree()
 }
 
 export let updateNewMessangeText = (newText) => {
     state.dialogPage.newMessangeText = newText
-    rerenderEntriTree(state)
+    rerenderEntireTree()
 }
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer
+};
 
 export default state;
