@@ -13,12 +13,12 @@ const Dialogs = (props) => {
 
     let sendMessange = () => {
         props.addMessange()
-    }
+    };
 
     let onMessangeChange = () => {
-        let text = newMessangeElement.current.value
+        let text = newMessangeElement.current.value;
         props.updateNewMessangeText(text)
-    }
+    };
 
     return (
         <div className={s.dialogs}>
