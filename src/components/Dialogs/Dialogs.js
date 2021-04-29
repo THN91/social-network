@@ -12,12 +12,12 @@ const Dialogs = (props) => {
     let newMessangeElement = React.createRef();
 
     let sendMessange = () => {
-        props.addMessange()
+        props.dispatch({type: 'ADD-MESSANGE'})
     };
 
     let onMessangeChange = () => {
         let text = newMessangeElement.current.value;
-        props.updateNewMessangeText(text)
+        props.dispatch({type: 'UPDATE-NEW-MESSANGE-TEXT', newText: text})
     };
 
     return (
