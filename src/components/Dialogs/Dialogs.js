@@ -3,21 +3,21 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messange from "./Messange/Messange";
+import {updateNewMessangeBodyCreator, sendMessangeCreator} from "../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
 
-    let dialogElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messangeElements = props.state.messanges.map(m => <Messange messange={m.messange}/>)
+    let dialogElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let messangeElements = props.state.messanges.map(m => <Messange messange={m.messange}/>);
+    let newMessangeText = props.state.newMessangeText;
 
-    let newMessangeElement = React.createRef();
-
-    let sendMessange = () => {
-        props.dispatch({type: 'ADD-MESSANGE'})
+    let onSendMessangeClick = () => {
+        props.dispatch(sendMessangeCreator())
     };
 
-    let onMessangeChange = () => {
-        let text = newMessangeElement.current.value;
-        props.dispatch({type: 'UPDATE-NEW-MESSANGE-TEXT', newText: text})
+    let updateNewMessangeText = (e) => {
+        let text = e.target.value;
+        props.dispatch(updateNewMessangeBodyCreator(text))
     };
 
     return (
@@ -29,11 +29,11 @@ const Dialogs = (props) => {
                 <div>{messangeElements}</div>
                 <div className={s.newMessange}>
                     <textarea
-                        ref={newMessangeElement}
-                        onChange={onMessangeChange}
-                        value={props.state.newMessangeText}
+                        placeholder='Enter your messange'
+                        onChange={updateNewMessangeText}
+                        value={newMessangeText}
                     />
-                    <button onClick={sendMessange}>send messange</button>
+                    <button onClick={onSendMessangeClick}>send messange</button>
                 </div>
             </div>
         </div>

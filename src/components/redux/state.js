@@ -1,3 +1,7 @@
+import reducerProfile from "./profile-reducer";
+import reducerDialogs from "./dialogs-reducer";
+import reducerSitebar from "./sitebar-reducer";
+
 let store = {
     _state: {
         dialogPage: {
@@ -48,31 +52,13 @@ let store = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {
-                id: 5,
-                messange: this._state.profilePage.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state)
-        }
-        if (action.type === 'ADD-MESSANGE') {
-            let newMessange = {
-                id: 7,
-                messange: this._state.dialogPage.newMessangeText
-            };
-            this._state.dialogPage.messanges.push(newMessange);
-            this._state.dialogPage.newMessangeText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-MESSANGE-TEXT') {
-            this._state.dialogPage.newMessangeText = action.newText;
-            this._callSubscriber(this._state);
-        }
+
+        this._state.profilePage = reducerProfile(this._state.profilePage, action);
+        this._state.dialogPage = reducerDialogs(this._state.dialogPage, action);
+        console.log(reducerDialogs(this._state.dialogPage, action));
+        this._state.sidebar = reducerSitebar(this._state.sidebar, action);
+
+        this._callSubscriber(this._state);
     }
 };
 
