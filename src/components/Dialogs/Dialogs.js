@@ -3,7 +3,6 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messange from "./Messange/Messange";
-import {updateNewMessangeBodyCreator, sendMessangeCreator} from "../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
 
@@ -12,12 +11,12 @@ const Dialogs = (props) => {
     let newMessangeText = props.state.newMessangeText;
 
     let onSendMessangeClick = () => {
-        props.dispatch(sendMessangeCreator())
+        props.sendMessange()
     };
 
-    let updateNewMessangeText = (e) => {
+    let onUpdateNewMessangeText = (e) => {
         let text = e.target.value;
-        props.dispatch(updateNewMessangeBodyCreator(text))
+        props.updateNewMessange(text)
     };
 
     return (
@@ -30,7 +29,7 @@ const Dialogs = (props) => {
                 <div className={s.newMessange}>
                     <textarea
                         placeholder='Enter your messange'
-                        onChange={updateNewMessangeText}
+                        onChange={onUpdateNewMessangeText}
                         value={newMessangeText}
                     />
                     <button onClick={onSendMessangeClick}>send messange</button>
