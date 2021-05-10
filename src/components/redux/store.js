@@ -1,6 +1,6 @@
-import reducerProfile from "./profile-reducer";
-import reducerDialogs from "./dialogs-reducer";
-import reducerSitebar from "./sitebar-reducer";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sitebarReducer from "./sitebar-reducer";
 
 let store = {
     _state: {
@@ -53,10 +53,9 @@ let store = {
 
     dispatch(action) {
 
-        this._state.profilePage = reducerProfile(this._state.profilePage, action);
-        this._state.dialogPage = reducerDialogs(this._state.dialogPage, action);
-        console.log(reducerDialogs(this._state.dialogPage, action));
-        this._state.sidebar = reducerSitebar(this._state.sidebar, action);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action);
+        this._state.sidebar = sitebarReducer(this._state.sidebar, action);
 
         this._callSubscriber(this._state);
     }
