@@ -6,9 +6,9 @@ import Messange from "./Messange/Messange";
 
 const Dialogs = (props) => {
 
-    let dialogElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
-    let messangeElements = props.state.messanges.map(m => <Messange messange={m.messange}/>);
-    let newMessangeText = props.state.newMessangeText;
+    let dialogElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let messangeElements = props.dialogPage.messanges.map(m => <Messange messange={m.messange}/>);
+    let newMessangeText = props.dialogPage.newMessangeText;
 
     let onSendMessangeClick = () => {
         props.sendMessange()

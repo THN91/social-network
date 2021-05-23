@@ -1,36 +1,25 @@
 import React from 'react';
+import {connect} from "react-redux";
 
 import {updateNewMessangeBodyCreator, sendMessangeCreator} from "../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext";
 
-const DialogContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    let state = store.getState().dialogPage;
-
-                    let sendMessange = () => {
-                        store.dispatch(sendMessangeCreator())
-                    };
-
-                    let updateNewMessangeText = (text) => {
-                        store.dispatch(updateNewMessangeBodyCreator(text))
-                    };
-
-                    return (
-                        <Dialogs
-                            sendMessange={sendMessange}
-                            updateNewMessange={updateNewMessangeText}
-                            state={state}
-                        />
-                    )
-                }
-            }
-
-        </StoreContext.Consumer>
-    )
+let mapStateToProps =  (state) => {
+    return {
+        dialogPage: state.dialogPage
+    }
 };
+let mapDispatchToProps = (dispatch) => {
+    return {
+        sendMessange: () => {
+            dispatch(sendMessangeCreator())
+        },
+        updateNewMessangeText: (text) => {
+            dispatch(updateNewMessangeBodyCreator(text))
+        }
+    }
+};
+
+const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 export default DialogContainer;
