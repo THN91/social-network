@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 
-import {updateNewMessangeBodyCreator, sendMessangeCreator} from "../redux/dialogs-reducer";
+import {updateNewMessangeText, sendMessange} from "../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 
 let mapStateToProps =  (state) => {
@@ -8,17 +8,7 @@ let mapStateToProps =  (state) => {
         dialogPage: state.dialogPage
     }
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessange: () => {
-            dispatch(sendMessangeCreator())
-        },
-        updateNewMessangeText: (text) => {
-            dispatch(updateNewMessangeBodyCreator(text))
-        }
-    }
-};
 
-const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogContainer = connect(mapStateToProps, {sendMessange, updateNewMessangeText})(Dialogs);
 
 export default DialogContainer;
