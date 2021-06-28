@@ -70,7 +70,7 @@ export const toogleIsFollowing = (isFetching, userID) => ({type: TOOGLE_IS_FOLLO
 
 export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
-       dispatch(setCurrentPage(currentPage))
+       dispatch(setCurrentPage(currentPage));
        dispatch(toogleIsFetching(true));
         userAPI.getUsers(currentPage, pageSize)
             .then(data => {
@@ -79,6 +79,6 @@ export const getUsers = (currentPage, pageSize) => {
                 dispatch(setTotalCount(data.totalCount))
             });
     }
-}
+};
 
 export default usersReducer;

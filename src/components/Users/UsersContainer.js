@@ -2,7 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {
-    follow, getUsers,
+    follow,
+    getUsers,
     setCurrentPage,
     toogleIsFollowing,
     unfollow
@@ -45,7 +46,6 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
         isFollowingProgress: state.usersPage.isFollowingProgress
     }
 };
