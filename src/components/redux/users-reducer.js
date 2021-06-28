@@ -1,4 +1,4 @@
-import {userAPI} from "../../api/api";
+import {followAPI, userAPI} from "../../api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -60,8 +60,8 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const follow = (userID) => ({type: FOLLOW, userID});
-export const unfollow = (userID) => ({type: UNFOLLOW, userID});
+export const followSuccess = (userID) => ({type: FOLLOW, userID});
+export const unfollowSuccess = (userID) => ({type: UNFOLLOW, userID});
 export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalCount = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
@@ -70,14 +70,40 @@ export const toogleIsFollowing = (isFetching, userID) => ({type: TOOGLE_IS_FOLLO
 
 export const getUsers = (currentPage, pageSize) => {
     return (dispatch) => {
-       dispatch(setCurrentPage(currentPage));
-       dispatch(toogleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
+        dispatch(toogleIsFetching(true));
         userAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(toogleIsFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalCount(data.totalCount))
             });
+    }
+};
+
+export const follow = (userID) => {
+    return (dispatch) => {
+        dispatch(toogleIsFollowing(true, userID));
+        followAPI.unfollow(userID)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userID))
+                }
+                dispatch(toogleIsFollowing(false, userID));
+            })
+    }
+};
+
+export const unfollow = (userID) => {
+    return (dispatch) => {
+        dispatch(toogleIsFollowing(true, userID));
+        followAPI.follow(userID)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userID))
+                }
+                dispatch(toogleIsFollowing(false, userID));
+            })
     }
 };
 
