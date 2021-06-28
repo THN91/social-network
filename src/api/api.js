@@ -42,3 +42,12 @@ export const followAPI = {
             })
     }
 };
+
+export const profileAPI = {
+    profilePage(userID) {
+        return instance.get(`profile/` + userID)
+            .then(response => {
+                return response.data;
+            });
+    }
+}
