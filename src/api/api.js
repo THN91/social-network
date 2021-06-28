@@ -15,20 +15,7 @@ export const userAPI = {
             .then(response => {
                 return response.data;
             })
-    }
-};
-
-export const authAPI = {
-    authLogin() {
-        return instance.get(`auth/me`)
-            .then(response => {
-                return response.data;
-            })
-    }
-};
-
-
-export const followAPI = {
+    },
     unfollow(id) {
         return instance.delete(`follow/${id}`)
             .then(response => {
@@ -40,14 +27,14 @@ export const followAPI = {
             .then(response => {
                 return response.data;
             })
+    },
+    profilePage(userID) {
+        return instance.get(`profile/` + userID)
     }
 };
 
-export const profileAPI = {
-    profilePage(userID) {
-        return instance.get(`profile/` + userID)
-            .then(response => {
-                return response.data;
-            });
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
     }
-}
+};
