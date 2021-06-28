@@ -1,8 +1,10 @@
 import React from 'react';
+import {Redirect} from "react-router";
 
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messange from "./Messange/Messange";
+
 
 const Dialogs = (props) => {
 
@@ -18,6 +20,8 @@ const Dialogs = (props) => {
         let text = e.target.value;
         props.updateNewMessangeText(text)
     };
+
+    if (!props.isAuth) return <Redirect to={"/login"}/>;
 
     return (
         <div className={s.dialogs}>
