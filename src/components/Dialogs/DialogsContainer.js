@@ -2,14 +2,12 @@ import {connect} from "react-redux";
 
 import {updateNewMessangeText, sendMessange} from "../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 let mapStateToProps =  (state) => {
     return {
-        dialogPage: state.dialogPage,
-        isAuth: state.auth.isAuth
+        dialogPage: state.dialogPage
     }
 };
 
-const DialogContainer = connect(mapStateToProps, {sendMessange, updateNewMessangeText})(Dialogs);
-
-export default DialogContainer;
+export default withAuthRedirect(connect(mapStateToProps, {sendMessange, updateNewMessangeText})(Dialogs));
