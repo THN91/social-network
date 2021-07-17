@@ -1,8 +1,9 @@
-import {profileAPI, userAPI} from "../../api/api";
+import {profileAPI} from "../../api/api";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_USER_STATUS = 'SET-USER-STATUS';
 
 let initialState = {
     posts: [
@@ -12,7 +13,8 @@ let initialState = {
         {id: 4, messange: 'what did you say?', likesCount: 20},
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: ""
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -38,6 +40,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile
             };
+        case SET_USER_STATUS:
+            return {
+                ...state,
+                status: action.status
+            };
         default:
             return state
     }
@@ -46,16 +53,30 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = () => ({type: ADD_POST});
 export const updateNewPostText = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const setUserStatus = (status) => ({type: SET_USER_STATUS, status});
 
 
-export const getUserProfile = (userID) =>{
-    return (dispatch) => {
-        userAPI.profilePage(userID)
-            .then(response => {
-                dispatch(setUserProfile(response.data));
-            });
-    }
-}
+export const getUserProfile = (userID) => (dispatch) => {
+    profileAPI.profilePage(userID)
+        .then(response => {
+            dispatch(setUserProfile(response.data));
+        });
+};
 
+
+export const getUserStatus = (userID) => (dispatch) => {
+    profileAPI.getStatus(userID)
+        .then(response => {
+            dispatch(setUserStatus(response.data));
+        });
+};
+
+export const updateUserStatus = (status) => (dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if(response.data.resultCode === 0)
+            dispatch(setUserStatus(status));
+        });
+};
 
 export default profileReducer;
