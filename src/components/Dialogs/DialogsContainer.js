@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 
-import {updateNewMessangeText, sendMessange} from "../redux/dialogs-reducer";
+import {sendMessange} from "../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -12,6 +12,6 @@ let mapStateToProps = (state) => {
 };
 
 export default compose(
-    connect(mapStateToProps, {sendMessange, updateNewMessangeText}),
+    connect(mapStateToProps, {sendMessange}),
     withAuthRedirect
 )(Dialogs);

@@ -3,21 +3,15 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Messange from "./Messange/Messange";
-
+import DialogsReduxForm from "./DialogsForm";
 
 const Dialogs = (props) => {
 
     let dialogElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
     let messangeElements = props.dialogPage.messanges.map(m => <Messange messange={m.messange} key={m.id}/>);
-    let newMessangeText = props.dialogPage.newMessangeText;
 
-    let onSendMessangeClick = () => {
-        props.sendMessange()
-    };
-
-    let onUpdateNewMessangeText = (e) => {
-        let text = e.target.value;
-        props.updateNewMessangeText(text)
+    let addNewMessange = (values) => {
+        props.sendMessange(values.newMessangeBody)
     };
 
     return (
@@ -27,17 +21,10 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messanges}>
                 <div>{messangeElements}</div>
-                <div className={s.newMessange}>
-                    <textarea
-                        placeholder='Enter your messange'
-                        onChange={onUpdateNewMessangeText}
-                        value={newMessangeText}
-                    />
-                    <button onClick={onSendMessangeClick}>send messange</button>
-                </div>
+                <DialogsReduxForm onSubmit={addNewMessange}/>
             </div>
         </div>
     )
-}
+};
 
 export default Dialogs;
